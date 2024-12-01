@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>랜덤 타로 카드</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+    .card { margin-top: 20px; }
+    img { width: 300px; height: 450px; }
+  </style>
+</head>
+<body>
+  <h1>랜덤 타로 카드</h1>
+  <button onclick="drawCard()">카드 보기</button>
+  <div id="cardDisplay" class="card"></div>
+  <script>
+    const tarotCards = [
+      { name: "The Fool (광대)", image: "https://drive.google.com/uc?id=1J7q9j8F8hnVQ_-cq1lDNyvDszfO5kIL5", fortune: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요." },
+      { name: "The Magician (마법사)", image: "https://drive.google.com/uc?id=1ji2rleSvaX_TCMjusKEmNGyNTx7un-p1", fortune: "2025년, 당신은 에듀테크의 마법사! 모든 수업 자료가 마법처럼 준비될 거에요." },
+      { name: "The High Priestess (여교황)", image: "https://drive.google.com/uc?id=1NJ5PyHWmk_eztR13HN8-29QzPOGYjrCM", fortune: "내년에는 감춰진 비밀들을 알게 될 겁니다. 선생님이 내년에 또 과학정보부장을 할 수 밖에 없는 이유 같은거요." },
+      { name: "The Empress (여황제)", image: "https://drive.google.com/uc?id=18AdfcsKBdAmXjIfQllsVES70i_zyc9OL", fortune: "창의력과 열정으로 수업이 꽃 피울 겁니다. 학생들도 깜짝 놀랄 아이디어가 넘칠 거예요!" },
+      // 나머지 카드 추가...
+    ];
+
+    function drawCard() {
+      const randomIndex = Math.floor(Math.random() * tarotCards.length);
+      const card = tarotCards[randomIndex];
+      document.getElementById('cardDisplay').innerHTML = `
+        <h2>${card.name}</h2>
+        <img src="${card.image}" alt="${card.name}" />
+        <p>${card.fortune}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
