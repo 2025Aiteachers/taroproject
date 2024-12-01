@@ -10,18 +10,17 @@
       text-align: center;
       margin: 0;
       padding: 0;
-      background-color: black; /* 배경을 검은색으로 설정 */
-      color: white; /* 텍스트를 흰색으로 설정 */
+      background-color: black;
+      color: white;
     }
     h1 {
-      font-size: 2em; /* 모바일에서도 보기 좋은 크기로 조정 */
+      font-size: 2em;
       margin-top: 20px;
-      color: gold; /* 제목 텍스트 색상을 금색으로 설정 */
+      color: gold;
     }
     h2 {
       font-size: 1.2em;
       margin: 20px 0 10px;
-      color: white;
     }
     img {
       width: 200px;
@@ -38,7 +37,7 @@
       height: 300px;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 1.5s ease-in-out; /* 여러 바퀴 돌아가는 애니메이션 */
+      transition: transform 1.5s ease-in-out;
     }
     .card-front,
     .card-back {
@@ -48,19 +47,17 @@
       backface-visibility: hidden;
     }
     .card-front {
-      z-index: 2;
       transform: rotateY(0deg);
     }
     .card-back {
       transform: rotateY(180deg);
     }
     .card-inner.flipped {
-      transform: rotateY(720deg);
+      transform: rotateY(900deg); /* 정확한 뒤집힘 설정 */
     }
     .description {
       margin-top: 20px;
       font-size: 1.1em;
-      color: white;
     }
     .reset-button {
       margin-top: 20px;
@@ -106,7 +103,6 @@
       { name: "The High Priestess (여교황)", image: "https://github.com/hahamanman/taroproject/blob/main/03_the%20high%20priestess.jpg?raw=true", description: "내년에는 감춰진 비밀들을 알게 될 겁니다. 선생님이 내년에 또 과학정보부장을 할 수 밖에 없는 이유 같은거요." },
       { name: "The Empress (여황제)", image: "https://github.com/hahamanman/taroproject/blob/main/03_the%20empress.jpg?raw=true", description: "창의력과 열정으로 수업이 꽃 피울 겁니다. 학생들도 깜짝 놀랄 아이디어가 넘칠 거예요!" },
       { name: "The Emperor (황제)", image: "https://github.com/hahamanman/taroproject/blob/main/04_the%20emperor.jpg?raw=true", description: "내년엔 권위가 빛날 거예요. 새로운 학생들도 새로운 업무들도 선생님이 하고자 하는대로 잘 풀릴거에요." },
-      { name: "The Hierophant (교황)", image: "https://github.com/hahamanman/taroproject/blob/main/06_the%20lovers.jpg?raw=true", description: "교육 철학이 업그레이드됩니다! 내년에도 AI와 함께 배우고 가르치는 새로운 방법을 찾게 될 거예요." },
       { name: "The Lovers (연인)", image: "https://github.com/hahamanman/taroproject/blob/main/06_the%20lovers.jpg?raw=true", description: "2025년엔 협력이 관건! 동료들과의 팀워크와 네트워크가 선생님을 더 성장하게 만들 겁니다." },
       { name: "The Chariot (전차)", image: "https://github.com/hahamanman/taroproject/blob/main/07_the%20chariot.jpg?raw=true", description: "결단력 있게 앞으로 나아가세요! AI와 함께라면 전차보다 더 빠르게 목표에 도달할 거예요." },
       { name: "Strength (힘)", image: "https://github.com/hahamanman/taroproject/blob/main/08_strength.jpg?raw=true", description: "학생들의 인내심 테스트? 문제없어요. 내년엔 더 단단한 내면의 힘으로 훌륭한 선생님으로 성장할거에요." },
@@ -147,7 +143,7 @@
       cardInner.classList.add("flipped");
       setTimeout(() => {
         resetButton.classList.remove("hidden");
-      }, 2000); // 애니메이션 완료 후 버튼 표시
+      }, 1500);
     });
 
     resetButton.addEventListener("click", () => {
