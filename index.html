@@ -3,10 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>테스트 페이지</title>
+  <title>Tarot Card Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    img {
+      width: 200px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+    }
+    .card {
+      margin: 10px;
+      display: inline-block;
+    }
+    .description {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-  <h1>GitHub Pages 테스트</h1>
-  <p>이 페이지가 보인다면 GitHub Pages가 제대로 설정되었습니다.</p>
+  <h1>타로 카드 보기</h1>
+  <p>아래의 카드를 클릭해 운세를 확인하세요!</p>
+  <div id="cards">
+    <div class="card">
+      <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" id="cardFront">
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const cards = [
+      {
+        name: "The Fool",
+        image: "https://github.com/hahamanman/taroproject/blob/main/01_the%20fool.jpg?raw=true",
+        description: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요."
+      },
+      {
+        name: "The Magician",
+        image: "https://github.com/hahamanman/taroproject/blob/main/02_the%20magician.jpg?raw=true",
+        description: "2025년, 당신은 에듀테크의 마법사! 모든 수업 자료가 마법처럼 준비될 거에요."
+      },
+      {
+        name: "The High Priestess",
+        image: "https://github.com/hahamanman/taroproject/blob/main/03_the%20high%20priestess.jpg?raw=true",
+        description: "내년에는 감춰진 비밀들을 알게 될 겁니다. 선생님이 내년에 또 과학정보부장을 할 수 밖에 없는 이유 같은거요."
+      },
+      {
+        name: "The Empress",
+        image: "https://github.com/hahamanman/taroproject/blob/main/03_the%20empress.jpg?raw=true",
+        description: "창의력과 열정으로 수업이 꽃 피울 겁니다. 학생들도 깜짝 놀랄 아이디어가 넘칠 거예요!"
+      },
+      {
+        name: "The Emperor",
+        image: "https://github.com/hahamanman/taroproject/blob/main/04_the%20emperor.jpg?raw=true",
+        description: "내년엔 권위가 빛날 거예요. 새로운 학생들도 새로운 업무들도 선생님이 하고자 하는대로 잘 풀릴거에요."
+      },
+      {
+        name: "The Lovers",
+        image: "https://github.com/hahamanman/taroproject/blob/main/06_the%20lovers.jpg?raw=true",
+        description: "2025년엔 협력이 관건! 동료들과의 팀워크와 네트워크가 선생님을 더 성장하게 만들 겁니다."
+      },
+      {
+        name: "The Chariot",
+        image: "https://github.com/hahamanman/taroproject/blob/main/07_the%20chariot.jpg?raw=true",
+        description: "결단력 있게 앞으로 나아가세요! AI와 함께라면 전차보다 더 빠르게 목표에 도달할 거예요."
+      },
+      {
+        name: "Strength",
+        image: "https://github.com/hahamanman/taroproject/blob/main/08_strength.jpg?raw=true",
+        description: "학생들의 인내심 테스트? 문제없어요. 내년엔 더 단단한 내면의 힘으로 훌륭한 선생님으로 성장할거에요."
+      },
+      {
+        name: "The Hermit",
+        image: "https://github.com/hahamanman/taroproject/blob/main/10_the%20hermit.jpg?raw=true",
+        description: "혼자만의 시간을 만끽하세요! 내년엔 AI가 당신의 조용한 연구 파트너가 되어줄 겁니다!"
+      },
+      {
+        name: "Wheel of Fortune",
+        image: "https://github.com/hahamanman/taroproject/blob/main/11_wheel%20of%20fortune.jpg?raw=true",
+        description: "행운의 바퀴가 회전합니다! 내년엔 원하는 보직과 원하는 학년을 얻게 될거에요!"
+      },
+      {
+        name: "Justice",
+        image: "https://github.com/hahamanman/taroproject/blob/main/24_justice.jpg?raw=true",
+        description: "공정함이 빛나는 한 해가 될 겁니다! 내년엔 우리 선생님은 늘 공정해요 라는 말을 듣게 될거에요."
+      },
+      // Add the rest of the cards here...
+    ];
+
+    document.getElementById('cardFront').addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * cards.length);
+      const selectedCard = cards[randomIndex];
+
+      document.getElementById('result').innerHTML = `
+        <img src="${selectedCard.image}" alt="${selectedCard.name}">
+        <p class="description">${selectedCard.description}</p>
+      `;
+    });
+  </script>
 </body>
 </html>
