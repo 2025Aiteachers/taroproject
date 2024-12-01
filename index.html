@@ -14,12 +14,12 @@
       color: white; /* 텍스트를 흰색으로 설정 */
     }
     h1 {
-      font-size: 2.5em;
+      font-size: 2em; /* 모바일에서도 보기 좋은 크기로 조정 */
       margin-top: 20px;
       color: gold; /* 제목 텍스트 색상을 금색으로 설정 */
     }
     h2 {
-      font-size: 1.4em;
+      font-size: 1.2em;
       margin: 20px 0 10px;
       color: white;
     }
@@ -38,7 +38,7 @@
       height: 300px;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 2s ease-in-out; /* 여러 바퀴 돌아가는 효과 추가 */
+      transition: transform 1.5s ease-in-out; /* 여러 바퀴 돌아가는 애니메이션 */
     }
     .card-front,
     .card-back {
@@ -55,7 +55,7 @@
       transform: rotateY(180deg);
     }
     .card-inner.flipped {
-      transform: rotateY(720deg); /* 여러 바퀴 돌면서 뒤집힘 */
+      transform: rotateY(720deg);
     }
     .description {
       margin-top: 20px;
@@ -106,7 +106,23 @@
       { name: "The High Priestess (여교황)", image: "https://github.com/hahamanman/taroproject/blob/main/03_the%20high%20priestess.jpg?raw=true", description: "내년에는 감춰진 비밀들을 알게 될 겁니다. 선생님이 내년에 또 과학정보부장을 할 수 밖에 없는 이유 같은거요." },
       { name: "The Empress (여황제)", image: "https://github.com/hahamanman/taroproject/blob/main/03_the%20empress.jpg?raw=true", description: "창의력과 열정으로 수업이 꽃 피울 겁니다. 학생들도 깜짝 놀랄 아이디어가 넘칠 거예요!" },
       { name: "The Emperor (황제)", image: "https://github.com/hahamanman/taroproject/blob/main/04_the%20emperor.jpg?raw=true", description: "내년엔 권위가 빛날 거예요. 새로운 학생들도 새로운 업무들도 선생님이 하고자 하는대로 잘 풀릴거에요." },
-      { name: "The Lovers (연인)", image: "https://github.com/hahamanman/taroproject/blob/main/06_the%20lovers.jpg?raw=true", description: "2025년엔 협력이 관건! 동료들과의 팀워크와 네트워크가 선생님을 더 성장하게 만들 겁니다." }
+      { name: "The Hierophant (교황)", image: "https://github.com/hahamanman/taroproject/blob/main/06_the%20lovers.jpg?raw=true", description: "교육 철학이 업그레이드됩니다! 내년에도 AI와 함께 배우고 가르치는 새로운 방법을 찾게 될 거예요." },
+      { name: "The Lovers (연인)", image: "https://github.com/hahamanman/taroproject/blob/main/06_the%20lovers.jpg?raw=true", description: "2025년엔 협력이 관건! 동료들과의 팀워크와 네트워크가 선생님을 더 성장하게 만들 겁니다." },
+      { name: "The Chariot (전차)", image: "https://github.com/hahamanman/taroproject/blob/main/07_the%20chariot.jpg?raw=true", description: "결단력 있게 앞으로 나아가세요! AI와 함께라면 전차보다 더 빠르게 목표에 도달할 거예요." },
+      { name: "Strength (힘)", image: "https://github.com/hahamanman/taroproject/blob/main/08_strength.jpg?raw=true", description: "학생들의 인내심 테스트? 문제없어요. 내년엔 더 단단한 내면의 힘으로 훌륭한 선생님으로 성장할거에요." },
+      { name: "The Hermit (은둔자)", image: "https://github.com/hahamanman/taroproject/blob/main/10_the%20hermit.jpg?raw=true", description: "혼자만의 시간을 만끽하세요! 내년엔 AI가 당신의 조용한 연구 파트너가 되어줄 겁니다!" },
+      { name: "Wheel of Fortune (운명의 수레바퀴)", image: "https://github.com/hahamanman/taroproject/blob/main/11_wheel%20of%20fortune.jpg?raw=true", description: "행운의 바퀴가 회전합니다! 내년엔 원하는 보직과 원하는 학년을 얻게 될거에요!" },
+      { name: "Justice (정의)", image: "https://github.com/hahamanman/taroproject/blob/main/24_justice.jpg?raw=true", description: "공정함이 빛나는 한 해가 될 겁니다! 내년엔 우리 선생님은 늘 공정해요 라는 말을 듣게 될거에요." },
+      { name: "The Hanged Man (매달린 남자)", image: "https://github.com/hahamanman/taroproject/blob/main/25_the%20hanged%20man.jpg?raw=true", description: "새로운 시각이 열립니다! 뭔가 어려운 일이 생길 때는 참신한 해결책이 다가올 거에요." },
+      { name: "Death (죽음)", image: "https://github.com/hahamanman/taroproject/blob/main/18_the%20star.jpg?raw=true", description: "오래된 습관은 떠나보내세요! AI가 당신에게 새로운 시작을 선물할 준비가 되어 있습니다." },
+      { name: "Temperance (절제)", image: "https://github.com/hahamanman/taroproject/blob/main/15_temperance.jpg?raw=true", description: "균형과 조화를 이루는 한 해가 될 겁니다! AI가 당신의 업무와 휴식을 완벽하게 조율해 줄 테니, 올해는 더 여유로운 시간을 기대하세요." },
+      { name: "The Devil (악마)", image: "https://github.com/hahamanman/taroproject/blob/main/16_the%20devil.jpg?raw=true", description: "내년엔 유혹이 강할 겁니다. 하지만 걱정 마세요, 우리가 당신의 현명한 선택에 함께할 거예요!" },
+      { name: "The Tower (탑)", image: "https://github.com/hahamanman/taroproject/blob/main/17_the%20tower.jpg?raw=true", description: "뜻밖의 변화가 찾아올 예정입니다! 하지만 동료들과 함께라면 새로운 길을 만들어갈 수 있을 거예요. 함께라서 든든하죠?" },
+      { name: "The Star (별)", image: "https://github.com/hahamanman/taroproject/blob/main/18_the%20star.jpg?raw=true", description: "희망과 영감의 해가 될 겁니다. 당신의 가장 빛나는 아이디어가 현실이 될 거예요." },
+      { name: "The Moon (달)", image: "https://github.com/hahamanman/taroproject/blob/main/19_the%20moon.jpg?raw=true", description: "모호함 속에서 빛나는 답을 찾게 될 겁니다. 주변사람들이 함께 길을 밝혀줄 테니까요!" },
+      { name: "The Sun (태양)", image: "https://github.com/hahamanman/taroproject/blob/main/20_the%20sun.jpg?raw=true", description: "밝고 긍정적인 에너지가 넘칩니다! 내년에도 햇살같은 기운이 찾아올 거에요." },
+      { name: "Judgment (심판)", image: "https://github.com/hahamanman/taroproject/blob/main/21_judgment.jpg?raw=true", description: "평가는 가볍게, 성장에는 진지하게! 내년에도 함께 더 나은 미래를 설계해보세요." },
+      { name: "The World (세계)", image: "https://github.com/hahamanman/taroproject/blob/main/22_the%20world.jpg?raw=true", description: "모든 것이 연결됩니다! 내년엔 당신의 수업이 글로벌 스탠다드가 될 겁니다." }
     ];
 
     const card = document.getElementById("card");
