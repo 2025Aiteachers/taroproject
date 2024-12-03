@@ -24,16 +24,15 @@
         .cards {
             display: flex;
             justify-content: center;
-            align-items: center;
             flex-wrap: wrap;
             margin-top: 20px;
+            gap: 10px; /* 카드 사이 간격 */
         }
 
         .card {
+            width: 90px; 
+            height: 135px; 
             perspective: 1000px;
-            width: 90px; /* 카드 전체 크기 설정 */
-            height: 135px; /* 2:3 비율 유지 */
-            margin: 10px;
         }
 
         .card-inner {
@@ -47,10 +46,11 @@
         .card-front,
         .card-back {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            background-size: cover;
         }
 
         .card-back {
@@ -152,7 +152,26 @@
     Kakao.init('YOUR_APP_KEY'); // 실제 JavaScript 키로 대체하세요.
 
     const cards = [
-        // 카드를 포함한 모든 데이터를 여기에 추가 (생략됨)
+        // 카드 데이터 목록 전체를 여기에 추가
+        {
+            name: "The Fool (광대)",
+            image: "https://github.com/hahamanman/taroproject/blob/main/01_the%20fool.jpg?raw=true",
+            descriptions: {
+                past: "새로운 모험을 향해 첫걸음을 내딛었습니다. 그 과정에서 얻은 경험이 당신을 더욱 성장하게 했습니다.",
+                present: "당신은 이제 새로운 기회를 마주하고 있습니다. 결단력이 필요한 시점입니다.",
+                future: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요."
+            }
+        },
+        {
+            name: "The Magician (마법사)",
+            image: "https://github.com/hahamanman/taroproject/blob/main/02_the%20magician.jpg?raw=true",
+            descriptions: {
+                past: "당신은 과거에 자신만의 능력을 발견하고, 이를 통해 많은 것을 성취해오셨습니다.",
+                present: "지금은 자신의 지식과 자원을 활용해야 할 시기입니다.",
+                future: "2025년, 당신은 에듀테크의 마법사! 모든 수업 자료가 마법처럼 준비될 거에요."
+            }
+        },
+        // 여기에 모든 다른 카드 데이터 추가...
     ];
 
     const cardElements = document.querySelectorAll('.card');
@@ -208,8 +227,8 @@
             objectType: 'feed',
             content: {
                 title: '2025년 타로카드 신년운세',
-                description: document.getElementById('cardDescription').innerText,
-                imageUrl: document.getElementById('cardImage1').src,
+                description: cardDescription.innerText,
+                imageUrl: cardImages[0].src,
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href
@@ -222,7 +241,7 @@
         if (navigator.share) {
             navigator.share({
                 title: '2025년 타로카드 신년운세',
-                text: document.getElementById('cardDescription').innerText,
+                text: cardDescription.innerText,
                 url: window.location.href
             }).catch(console.error);
         } else {
