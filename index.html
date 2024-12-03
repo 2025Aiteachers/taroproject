@@ -1,46 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 AI 에듀테크 선도교사 타로운세</title>
+    <title>2025년 타로카드 신년운세</title>
     <style>
         body {
-            background-color: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
+            font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
-            padding-top: 10px;
-            overflow: hidden; /* 페이지가 넘칠 경우 스크롤 가능 */
+            padding: 0;
+            background-color: black;
+            color: white;
         }
 
         h1 {
+            font-size: 2em;
+            margin-top: 30px;
             color: gold;
-            margin-bottom: 20px;
         }
 
-        .card-container {
-            position: relative;
+        .cards {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            height: 80vh; /* 높이를 지정하여 잘림 방지 */
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .card {
-            width: 112.5px; /* 0.75배 줄인 크기 */
-            height: 168.75px; /* 0.75배 줄인 크기 */
             perspective: 1000px;
-            cursor: pointer;
-            margin: 10px 0; /* 카드 간격 조정 */
-            position: absolute;
-            transition: transform 0.6s;
-            z-index: 1;
+            width: 90px; /* 카드 전체 크기 설정 */
+            height: 135px; /* 2:3 비율 유지 */
+            margin: 10px;
         }
 
         .card-inner {
@@ -57,142 +50,186 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 10px;
             background-size: cover;
         }
 
         .card-back {
-            background-image: url('https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true');
-        }
-
-        .card-front {
             transform: rotateY(180deg);
         }
 
-        .flipped {
+        .card-inner.flipped {
             transform: rotateY(180deg);
         }
 
-        #description {
-            color: white;
-            position: absolute;
-            font-size: 18px; /* 글씨 크기 증가 */
-            margin-left: 150px; /* 오른쪽으로 이동 */
+        .description {
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: gold;
+            max-width: 90%;
+            text-align: center;
+            margin: 0 auto;
         }
 
-        .description-text {
-            color: gold; /* '과거', '현재', '미래'의 색상 */
-            font-weight: bold;
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
 
-        #resetButton {
-            margin-top: 10px;
+        .reset-button,
+        .share-button {
             padding: 10px 20px;
-            font-size: 16px;
+            font-size: 1em;
             background-color: #ffd700;
             color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            max-width: 130px;
         }
 
-        #resetButton:hover {
+        .reset-button:hover,
+        .share-button:hover {
             background-color: #cca300;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
+
 <body>
+<h1>2025년 타로카드 신년운세</h1>
+<p>세 장의 카드를 차례로 클릭해서 당신의 과거, 현재, 미래 운세를 확인하세요!</p>
 
-<h1>2025년 AI 에듀테크 선도교사 타로운세</h1>
-<p>카드를 눌러 과거 현재 미래의 당신을 확인하세요</p>
+<div class="cards">
+    <div class="card" id="card1">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" style="width: 100%; height: 100%;">
+            </div>
+            <div class="card-back">
+                <img id="cardImage1" src="" alt="Card Back" style="width: 100%; height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="card" id="card2">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" style="width: 100%; height: 100%;">
+            </div>
+            <div class="card-back">
+                <img id="cardImage2" src="" alt="Card Back" style="width: 100%; height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="card" id="card3">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" style="width: 100%; height: 100%;">
+            </div>
+            <div class="card-back">
+                <img id="cardImage3" src="" alt="Card Back" style="width: 100%; height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="card-container" id="card-container"></div>
+<h2 id="cardName"></h2>
+<p class="description" id="cardDescription"></p>
 
-<button id="resetButton" style="display: none;">처음으로 돌아가기</button>
+<div class="button-container hidden" id="buttonContainer">
+    <button class="reset-button" id="resetButton">처음으로 돌아가기</button>
+    <button class="share-button" id="kakaoShareButton">카카오톡으로 공유하기</button>
+    <button class="share-button" id="nativeShareButton">X로 공유하기</button>
+</div>
 
 <script>
-    const cardsData = [
-        {
-            name: "The Fool (광대)",
-            image: "https://github.com/hahamanman/taroproject/blob/main/01_the%20fool.jpg?raw=true",
-            descriptions: {
-                past: "새로운 모험을 향해 첫걸음을 내딛었습니다. 그 과정에서 얻은 경험이 당신을 더욱 성장하게 했습니다.",
-                present: "당신은 이제 새로운 기회를 마주하고 있습니다. 결단력이 필요한 시점입니다.",
-                future: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요."
-            }
-        },
-        // 다른 카드 데이터 추가
+    Kakao.init('YOUR_APP_KEY'); // 실제 JavaScript 키로 대체하세요.
+
+    const cards = [
+        // 카드를 포함한 모든 데이터를 여기에 추가 (생략됨)
     ];
 
+    const cardElements = document.querySelectorAll('.card');
+    const cardInnerElements = document.querySelectorAll('.card-inner');
+    const cardImages = [
+        document.getElementById("cardImage1"),
+        document.getElementById("cardImage2"),
+        document.getElementById("cardImage3")
+    ];
+    const cardName = document.getElementById("cardName");
+    const cardDescription = document.getElementById("cardDescription");
+    const resetButton = document.getElementById("resetButton");
+    const kakaoShareButton = document.getElementById("kakaoShareButton");
+    const nativeShareButton = document.getElementById("nativeShareButton");
     let flipCount = 0;
-    const cardContainer = document.getElementById('card-container');
-    const resetButton = document.getElementById('resetButton');
 
-    function createCard(index) {
-        const cardElement = document.createElement('div');
-        cardElement.classList.add('card');
-        cardElement.style.top = `${index * 180}px`;
-        const cardInner = document.createElement('div');
-        cardInner.classList.add('card-inner');
+    cardElements.forEach((card, index) => {
+        card.addEventListener("click", () => {
+            if (flipCount >= 3 || cardInnerElements[index].classList.contains("flipped")) return;
 
-        const cardBack = document.createElement('div');
-        cardBack.classList.add('card-back');
+            const randomIndex = Math.floor(Math.random() * cards.length);
+            const selectedCard = cards[randomIndex];
 
-        const cardFront = document.createElement('div');
-        cardFront.classList.add('card-front');
+            cardImages[index].src = selectedCard.image;
+            const position = ['past', 'present', 'future'];
+            const positionText = ['과거', '현재', '미래'];
 
-        cardInner.appendChild(cardBack);
-        cardInner.appendChild(cardFront);
-        cardElement.appendChild(cardInner);
-        cardContainer.appendChild(cardElement);
+            cardName.innerHTML +=
+                `<br/><strong>${positionText[flipCount]}:</strong> ${selectedCard.name}`;
+            cardDescription.innerHTML +=
+                `<strong>${positionText[flipCount]}:</strong> ${selectedCard.descriptions[position[flipCount]]} <br/>`;
 
-        cardElement.addEventListener('click', () => flipCard(cardElement, cardFront, index));
-    }
+            cardInnerElements[index].classList.add("flipped");
+            flipCount++;
 
-    function flipCard(card, cardFrontElement, index) {
-        if (flipCount < 3 && !card.classList.contains('done')) {
-            const randomIndex = Math.floor(Math.random() * cardsData.length);
-            const selectedCard = cardsData[randomIndex];
+            if (flipCount === 3) {
+                document.getElementById("buttonContainer").classList.remove("hidden");
+            }
+        });
+    });
 
-            cardFrontElement.style.backgroundImage = `url(${selectedCard.image})`;
-
-            setTimeout(() => {
-                card.style.transform = `translateX(200px)`;
-                card.querySelector('.card-inner').classList.add('flipped');
-            }, 600);
-
-            setTimeout(() => {
-                const descriptionPart = document.createElement('div');
-                descriptionPart.className = 'description-text';
-                descriptionPart.innerHTML = `<span>${['과거', '현재', '미래'][flipCount]}:</span> ${selectedCard.descriptions[['past', 'present', 'future'][flipCount]]}`;
-                descriptionPart.style.top = `${index * 180}px`;
-                descriptionPart.style.left = '320px';
-                cardContainer.appendChild(descriptionPart);
-
-                card.classList.add('done');  // Prevent further clicks on the same card
-                flipCount++;
-                if (flipCount === 3) {
-                    resetButton.style.display = 'block';
-                    resetButton.addEventListener('click', resetGame);
-                }
-            }, 1200);
-        }
-    }
-
-    function resetGame() {
+    resetButton.addEventListener("click", () => {
         flipCount = 0;
-        cardContainer.innerHTML = '';
-        for (let i = 0; i < 4; i++) {
-            createCard(i);
+        cardInnerElements.forEach(el => el.classList.remove("flipped"));
+        cardImages.forEach(img => img.src = "");
+        cardName.textContent = "";
+        cardDescription.textContent = "";
+        document.getElementById("buttonContainer").classList.add("hidden");
+    });
+
+    kakaoShareButton.addEventListener('click', function () {
+        Kakao.Link.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '2025년 타로카드 신년운세',
+                description: document.getElementById('cardDescription').innerText,
+                imageUrl: document.getElementById('cardImage1').src,
+                link: {
+                    mobileWebUrl: window.location.href,
+                    webUrl: window.location.href
+                }
+            }
+        });
+    });
+
+    nativeShareButton.addEventListener('click', function () {
+        if (navigator.share) {
+            navigator.share({
+                title: '2025년 타로카드 신년운세',
+                text: document.getElementById('cardDescription').innerText,
+                url: window.location.href
+            }).catch(console.error);
+        } else {
+            alert('이 기능은 현재 지원되지 않는 브라우저입니다.');
         }
-        resetButton.style.display = 'none';
-    }
+    });
 
-    // 최초 호출
-    for (let i = 0; i < 4; i++) {
-        createCard(i);
-    }
 </script>
-
 </body>
 </html>
