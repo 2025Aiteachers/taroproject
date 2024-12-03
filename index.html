@@ -57,7 +57,7 @@
         }
 
         .card-inner.flipped {
-            transform: rotateY(540deg);
+            transform: rotateY(180deg);
         }
 
         .description {
@@ -72,10 +72,6 @@
 
         .arcana-name {
             color: lightcoral; /* 아르카나 카드 이름 색상 */
-        }
-
-        .gold-text {
-            color: gold; /* 과거, 현재, 미래 텍스트 색상 */
         }
 
         .future-text {
@@ -166,7 +162,7 @@
 </div>
 
 <script>
-    Kakao.init('7a8d42b217b82c4d4b314e8dfd73af08'); // 실제 JavaScript 키로 대체하세요.
+    Kakao.init('YOUR_APP_KEY'); // 실제 JavaScript 키로 대체하세요.
 
     const cards = [
         {
@@ -383,12 +379,11 @@
 
             cardImages[index].src = selectedCard.image;
             const position = ['past', 'present', 'future'];
-            const positionText = ['과거', '현재', '미래'];
 
             const descriptionClass = position[flipCount] === 'future' ? 'future-text' : '';
 
-            cardName.innerHTML += `<br/><strong class="gold-text">${positionText[flipCount]}:</strong> <span class="arcana-name">${selectedCard.name}</span>`;
-            cardDescription.innerHTML += `<strong class="gold-text">${positionText[flipCount]}:</strong> <span class="${descriptionClass}">${selectedCard.descriptions[position[flipCount]]}</span><br/>`;
+            cardName.innerHTML += `<br/><span class="arcana-name">${selectedCard.name}</span>`;
+            cardDescription.innerHTML += `<span class="${descriptionClass}">${selectedCard.descriptions[position[flipCount]]}</span><br/>`;
 
             cardInnerElements[index].classList.add("flipped");
             flipCount++;
