@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,22 +25,22 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            gap: 10px; /* 카드 간격 */
             margin-top: 20px;
         }
 
         .card {
-            flex-basis: 30%;
-            max-width: 100px; /* 최대 100px */
-            min-width: 80px;
+            flex-basis: 20%; /* 카드 크기 비율 조정 */
+            max-width: 80px; /* 최대 크기 */
+            min-width: 60px; /* 최소 크기 */
             margin: 10px;
-            perspective: 1000px;
+            perspective: 800px; /* 3D 효과 */
         }
 
         .card-inner {
-            position: relative;
             width: 100%;
             height: 0;
-            padding-top: 150%; /* Width to height ratio 2:3 */
+            padding-top: 133%; /* 2:3 비율 유지 */
             transform-style: preserve-3d;
             transition: transform 0.6s;
         }
@@ -53,8 +52,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            backface-visibility: hidden;
             background-size: cover;
+            backface-visibility: hidden;
         }
 
         .card-back {
@@ -71,13 +70,12 @@
             color: gold;
             max-width: 90%;
             text-align: center;
-            margin: 0 auto; /* Center align */
+            margin: 0 auto;
         }
 
         .button-container {
             margin-top: 20px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
         }
@@ -91,7 +89,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            max-width: 130px;
         }
 
         .reset-button:hover,
@@ -105,55 +102,48 @@
     </style>
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
-
 <body>
-<h1>2025년 타로카드 신년운세</h1>
-<p>세 장의 카드를 차례로 클릭해서 당신의 과거, 현재, 미래 운세를 확인하세요!</p>
+    <h1>2025년 타로카드 신년운세</h1>
+    <p>세 장의 카드를 차례로 클릭해서 당신의 과거, 현재, 미래 운세를 확인하세요!</p>
 
-<div class="cards">
-    <div class="card" id="card1">
-        <div class="card-inner">
-            <div class="card-front">
-                <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front">
+    <div class="cards">
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front" style="background-image: url('https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true');"></div>
+                <div class="card-back">
+                    <img class="card-back-image" src="" alt="Card Back">
+                </div>
             </div>
-            <div class="card-back">
-                <img id="cardImage1" src="" alt="Card Back">
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front" style="background-image: url('https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true');"></div>
+                <div class="card-back">
+                    <img class="card-back-image" src="" alt="Card Back">
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front" style="background-image: url('https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true');"></div>
+                <div class="card-back">
+                    <img class="card-back-image" src="" alt="Card Back">
+                </div>
             </div>
         </div>
     </div>
-    <div class="card" id="card2">
-        <div class="card-inner">
-            <div class="card-front">
-                <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front">
-            </div>
-            <div class="card-back">
-                <img id="cardImage2" src="" alt="Card Back">
-            </div>
-        </div>
+
+    <h2 id="cardName"></h2>
+    <p class="description" id="cardDescription"></p>
+
+    <div class="button-container hidden" id="buttonContainer">
+        <button class="reset-button" id="resetButton">처음으로 돌아가기</button>
     </div>
-    <div class="card" id="card3">
-        <div class="card-inner">
-            <div class="card-front">
-                <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front">
-            </div>
-            <div class="card-back">
-                <img id="cardImage3" src="" alt="Card Back">
-            </div>
-        </div>
-    </div>
-</div>
 
-<h2 id="cardName"></h2>
-<p class="description" id="cardDescription"></p>
+    <script>
+        // Kakao SDK 초기화 (JavaScript 키로 대체하세요)
+        Kakao.init('7a8d42b217b82c4d4b314e8dfd73af08');
 
-<div class="button-container hidden" id="buttonContainer">
-    <button class="reset-button" id="resetButton">처음으로 돌아가기</button>
-    <button class="share-button" id="kakaoShareButton">카카오톡으로 공유하기</button>
-    <button class="share-button" id="nativeShareButton">X로 공유하기</button>
-</div>
-
-<script>
-    Kakao.init('YOUR_APP_KEY'); // 실제 JavaScript 키로 대체하세요.
 
     const cards = [
         {
@@ -347,82 +337,42 @@
         }
     ];
 
-    const cardElements = document.querySelectorAll('.card');
-    const cardInnerElements = document.querySelectorAll('.card-inner');
-    const cardImages = [
-        document.getElementById("cardImage1"),
-        document.getElementById("cardImage2"),
-        document.getElementById("cardImage3")
-    ];
-    const cardName = document.getElementById("cardName");
-    const cardDescription = document.getElementById("cardDescription");
-    const resetButton = document.getElementById("resetButton");
-    const kakaoShareButton = document.getElementById("kakaoShareButton");
-    const nativeShareButton = document.getElementById("nativeShareButton"); // X로 공유하기 버튼
-    let flipCount = 0;
+        const cardElements = document.querySelectorAll('.card');
+        const cardBackImages = document.querySelectorAll('.card-back-image');
+        const cardName = document.getElementById("cardName");
+        const cardDescription = document.getElementById("cardDescription");
+        const resetButton = document.getElementById("resetButton");
+        const buttonContainer = document.getElementById("buttonContainer");
+        let flipCount = 0;
 
-    cardElements.forEach((card, index) => {
-        card.addEventListener("click", () => {
-            if (flipCount >= 3 || cardInnerElements[index].classList.contains("flipped")) return;
+        cardElements.forEach((card, index) => {
+            card.addEventListener("click", () => {
+                if (flipCount >= 3 || card.querySelector('.card-inner').classList.contains("flipped")) return;
 
-            const randomIndex = Math.floor(Math.random() * cards.length);
-            const selectedCard = cards[randomIndex];
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                cardBackImages[index].src = randomCard.image;
 
-            cardImages[index].src = selectedCard.image;
-            const position = ['past', 'present', 'future'];
-            const positionText = ['과거', '현재', '미래'];
+                const positionText = ["과거", "현재", "미래"];
+                cardName.innerHTML += `<br/><strong>${positionText[flipCount]}:</strong> ${randomCard.name}`;
+                cardDescription.innerHTML += `<strong>${positionText[flipCount]}:</strong> ${randomCard.descriptions[positionText[flipCount].toLowerCase()]}<br/>`;
 
-            cardName.innerHTML +=
-                `<br/><strong>${positionText[flipCount]}:</strong> ${selectedCard.name}`;
-            cardDescription.innerHTML +=
-                `<strong>${positionText[flipCount]}:</strong> ${selectedCard.descriptions[position[flipCount]]} <br/>`;
+                card.querySelector('.card-inner').classList.add("flipped");
+                flipCount++;
 
-            cardInnerElements[index].classList.add("flipped");
-            flipCount++;
-
-            if (flipCount === 3) {
-                document.getElementById("buttonContainer").classList.remove("hidden");
-            }
-        });
-    });
-
-    resetButton.addEventListener("click", () => {
-        flipCount = 0;
-        cardInnerElements.forEach(el => el.classList.remove("flipped"));
-        cardImages.forEach(img => img.src = "");
-        cardName.textContent = "";
-        cardDescription.textContent = "";
-        document.getElementById("buttonContainer").classList.add("hidden");
-    });
-
-    kakaoShareButton.addEventListener('click', function () {
-        Kakao.Link.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: '2025년 타로카드 신년운세',
-                description: document.getElementById('cardDescription').innerText,
-                imageUrl: document.getElementById('cardImage1').src,
-                link: {
-                    mobileWebUrl: window.location.href,
-                    webUrl: window.location.href
+                if (flipCount === 3) {
+                    buttonContainer.classList.remove("hidden");
                 }
-            }
+            });
         });
-    });
 
-    // X로 공유하기 기능
-    nativeShareButton.addEventListener('click', function () {
-        if (navigator.share) {
-            navigator.share({
-                title: '2025년 타로카드 신년운세',
-                text: document.getElementById('cardDescription').innerText,
-                url: window.location.href
-            }).catch(console.error);
-        } else {
-            alert('이 기능은 현재 지원되지 않는 브라우저입니다.');
-        }
-    });
-
-</script>
+        resetButton.addEventListener("click", () => {
+            flipCount = 0;
+            cardName.innerHTML = "";
+            cardDescription.innerHTML = "";
+            cardElements.forEach(card => card.querySelector('.card-inner').classList.remove("flipped"));
+            cardBackImages.forEach(image => image.src = "");
+            buttonContainer.classList.add("hidden");
+        });
+    </script>
 </body>
 </html>
