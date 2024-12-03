@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,12 +25,12 @@
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 20px;
-            gap: 10px; /* 카드 사이 간격 */
+            gap: 10px;
         }
 
         .card {
-            width: 90px; 
-            height: 135px; 
+            width: 108px; /* 1.2배 확대 */
+            height: 162px; /* 1.2배 확대 */
             perspective: 1000px;
         }
 
@@ -64,10 +63,19 @@
         .description {
             margin-top: 30px;
             font-size: 1.1em;
-            color: gold;
+            color: white;
             max-width: 90%;
-            text-align: center;
+            text-align: left;
             margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .arcana-name {
+            color: lightcoral; /* 아르카나 카드 이름 색상 */
+        }
+
+        .gold-text {
+            color: gold; /* 과거, 현재, 미래 텍스트 색상 */
         }
 
         .button-container {
@@ -101,13 +109,12 @@
     </style>
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
-
 <body>
 <h1>2025년 타로카드 신년운세</h1>
 <p>세 장의 카드를 차례로 클릭해서 당신의 과거, 현재, 미래 운세를 확인하세요!</p>
 
 <div class="cards">
-    <div class="card" id="card1">
+    <div class="card">
         <div class="card-inner">
             <div class="card-front">
                 <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" style="width: 100%; height: 100%;">
@@ -117,7 +124,7 @@
             </div>
         </div>
     </div>
-    <div class="card" id="card2">
+    <div class="card">
         <div class="card-inner">
             <div class="card-front">
                 <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" style="width: 100%; height: 100%;">
@@ -127,7 +134,7 @@
             </div>
         </div>
     </div>
-    <div class="card" id="card3">
+    <div class="card">
         <div class="card-inner">
             <div class="card-front">
                 <img src="https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true" alt="Card Front" style="width: 100%; height: 100%;">
@@ -152,7 +159,6 @@
     Kakao.init('YOUR_APP_KEY'); // 실제 JavaScript 키로 대체하세요.
 
     const cards = [
-        // 카드 데이터 목록 전체를 여기에 추가
         {
             name: "The Fool (광대)",
             image: "https://github.com/hahamanman/taroproject/blob/main/01_the%20fool.jpg?raw=true",
@@ -162,16 +168,7 @@
                 future: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요."
             }
         },
-        {
-            name: "The Magician (마법사)",
-            image: "https://github.com/hahamanman/taroproject/blob/main/02_the%20magician.jpg?raw=true",
-            descriptions: {
-                past: "당신은 과거에 자신만의 능력을 발견하고, 이를 통해 많은 것을 성취해오셨습니다.",
-                present: "지금은 자신의 지식과 자원을 활용해야 할 시기입니다.",
-                future: "2025년, 당신은 에듀테크의 마법사! 모든 수업 자료가 마법처럼 준비될 거에요."
-            }
-        },
-        // 여기에 모든 다른 카드 데이터 추가...
+        // 나머지 카드 데이터 여기에 추가...
     ];
 
     const cardElements = document.querySelectorAll('.card');
@@ -199,10 +196,8 @@
             const position = ['past', 'present', 'future'];
             const positionText = ['과거', '현재', '미래'];
 
-            cardName.innerHTML +=
-                `<br/><strong>${positionText[flipCount]}:</strong> ${selectedCard.name}`;
-            cardDescription.innerHTML +=
-                `<strong>${positionText[flipCount]}:</strong> ${selectedCard.descriptions[position[flipCount]]} <br/>`;
+            cardName.innerHTML += `<br/><strong class="gold-text">${positionText[flipCount]}:</strong> <span class="arcana-name">${selectedCard.name}</span>`;
+            cardDescription.innerHTML += `<strong class="gold-text">${positionText[flipCount]}:</strong> <span>${selectedCard.descriptions[position[flipCount]]}</span><br/>`;
 
             cardInnerElements[index].classList.add("flipped");
             flipCount++;
