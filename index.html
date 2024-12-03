@@ -12,59 +12,73 @@
             background-color: black;
             color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
         }
-        #container {
+
+        .card-board {
             display: flex;
+            flex-direction: column;
             align-items: flex-start;
+            margin-top: 50px;
         }
+
         .card {
             width: 100px;
             height: 150px;
-            margin-right: 20px;
+            margin-bottom: 10px;
             perspective: 1000px;
+            cursor: pointer;
         }
+
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
             transition: transform 0.6s;
-            cursor: pointer;
         }
+
         .card-front,
         .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            background-size: cover;
             border-radius: 10px;
+            background-size: cover;
         }
+
         .card-back {
             background-image: url('https://github.com/hahamanman/taroproject/blob/main/00_backdesign.jpg?raw=true');
         }
+
         .card-front {
             transform: rotateY(180deg);
+            background: white;
         }
+
+        .flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
         #description {
-            max-width: 200px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-<div id="container">
-    <div class="card">
-        <div class="card-inner" id="card1">
+<div class="card-board">
+    <div class="card" id="card">
+        <div class="card-inner">
             <div class="card-back"></div>
             <div class="card-front"></div>
         </div>
     </div>
-    <div id="description"></div>
 </div>
+
+<div id="description"></div>
 
 <script>
     const cardsData = [
@@ -77,30 +91,29 @@
                 future: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요."
             }
         },
-        // 다른 카드 데이터 추가...
+        // 다른 카드 데이터 추가
     ];
 
-    let currentCardIndex = 0;
-    let flippedCards = 0;
-    const cardElement = document.getElementById('card1');
+    let flipCount = 0;
+    const cardElement = document.getElementById('card');
     const descriptionElement = document.getElementById('description');
 
     cardElement.addEventListener('click', () => {
-        if (flippedCards < 3) {
+        if (flipCount < 3) {
             const randomIndex = Math.floor(Math.random() * cardsData.length);
             const selectedCard = cardsData[randomIndex];
-            cardElement.querySelector('.card-front').style.backgroundImage = `url(${selectedCard.image})`;
+            const cardFrontElement = cardElement.querySelector('.card-front');
 
-            cardElement.classList.toggle('flipped');
+            cardFrontElement.style.backgroundImage = `url(${selectedCard.image})`;
+            cardElement.classList.add('flipped');
+            
             setTimeout(() => {
-                descriptionElement.innerHTML += `<strong>${['과거', '현재', '미래'][flippedCards]}:</strong> ${selectedCard.descriptions[['past', 'present', 'future'][flippedCards]]} <br/>`;
-                if (flippedCards > 0) {
-                    cardElement.parentElement.style.position = 'absolute';
-                    cardElement.parentElement.style.left = `${flippedCards * 120}px`;
-                    cardElement.parentElement.style.top = `${flippedCards * 170}px`;
-                }
-                flippedCards++;
-            }, 600);
+                descriptionElement.innerHTML += `<strong>${['과거', '현재', '미래'][flipCount]}:</strong> ${selectedCard.descriptions[['past', 'present', 'future'][flipCount]]} <br/>`;
+                const newCardElement = cardElement.cloneNode(true);
+                newCardElement.classList.remove('flipped');
+                document.querySelector('.card-board').appendChild(newCardElement);
+                flipCount++;
+            }, 700);
         }
     });
 </script>
