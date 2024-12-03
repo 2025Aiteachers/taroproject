@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025년 타로카드 신년운세</title>
+    <title>2025 AI 에듀테크 선도교사 타로운세</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: black;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
         }
 
-        .card-board {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-top: 50px;
+        h1 {
+            color: gold;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            position: relative;
+            margin-top: 20px;
         }
 
         .card {
             width: 100px;
             height: 150px;
-            margin-bottom: 10px;
             perspective: 1000px;
             cursor: pointer;
         }
@@ -36,7 +39,7 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.6s;
+            transition: transform 0.6s, left 0.6s, top 0.6s;
         }
 
         .card-front,
@@ -55,21 +58,25 @@
 
         .card-front {
             transform: rotateY(180deg);
-            background: white;
-        }
-
-        .flipped .card-inner {
-            transform: rotateY(180deg);
         }
 
         #description {
-            margin-top: 20px;
+            max-width: 300px;
+            margin-left: 20px;
+            text-align: left;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
         }
     </style>
 </head>
 <body>
 
-<div class="card-board">
+<h1>2025년 AI 에듀테크 선도교사 타로운세</h1>
+<p>카드를 눌러 과거 현재 미래의 당신을 확인하세요</p>
+
+<div class="card-container">
     <div class="card" id="card">
         <div class="card-inner">
             <div class="card-back"></div>
@@ -91,28 +98,35 @@
                 future: "새로운 시작을 두려워하지 마세요! 내년에는 실수조차도 AI가 모두 다 고쳐줄 거에요."
             }
         },
-        // 다른 카드 데이터 추가
+        // 다른 카드 데이터 추가 가능
     ];
 
     let flipCount = 0;
-    const cardElement = document.getElementById('card');
+    const cardElement = document.getElementById('card').querySelector('.card-inner');
     const descriptionElement = document.getElementById('description');
 
-    cardElement.addEventListener('click', () => {
+    document.getElementById('card').addEventListener('click', () => {
         if (flipCount < 3) {
             const randomIndex = Math.floor(Math.random() * cardsData.length);
             const selectedCard = cardsData[randomIndex];
             const cardFrontElement = cardElement.querySelector('.card-front');
 
             cardFrontElement.style.backgroundImage = `url(${selectedCard.image})`;
+
+            // Add flipped class
             cardElement.classList.add('flipped');
-            
+
+            // Animate card to the bottom-left position
             setTimeout(() => {
+                cardElement.style.transform = 'rotateY(180deg) translate(-150px, 200px)';
                 descriptionElement.innerHTML += `<strong>${['과거', '현재', '미래'][flipCount]}:</strong> ${selectedCard.descriptions[['past', 'present', 'future'][flipCount]]} <br/>`;
-                const newCardElement = cardElement.cloneNode(true);
-                newCardElement.classList.remove('flipped');
-                document.querySelector('.card-board').appendChild(newCardElement);
+                cardElement.parentElement.style.pointerEvents = 'none'; // Prevent clicking this card again
                 flipCount++;
+
+                if (flipCount < 3) {
+                    const newCardElement = cardElement.parentElement.cloneNode(true);
+                    document.querySelector('.card-container').appendChild(newCardElement);
+                }
             }, 700);
         }
     });
