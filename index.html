@@ -15,7 +15,8 @@
             height: 100vh;
             text-align: center;
             margin: 0;
-            padding-top: 20px;
+            padding-top: 10px;
+            overflow: hidden; /* 페이지가 넘칠 경우 스크롤 가능 */
         }
 
         h1 {
@@ -28,6 +29,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 80vh; /* 높이를 지정하여 잘림 방지 */
         }
 
         .card {
@@ -35,8 +37,10 @@
             height: 168.75px; /* 0.75배 줄인 크기 */
             perspective: 1000px;
             cursor: pointer;
-            margin: 5px 0;
-            position: relative;
+            margin: 10px 0; /* 카드 간격 조정 */
+            position: absolute;
+            transition: transform 0.6s;
+            z-index: 1;
         }
 
         .card-inner {
@@ -66,14 +70,14 @@
         }
 
         .flipped {
-            transform: rotateY(-180deg); /* 오른쪽으로 뒤집힘 */
+            transform: rotateY(180deg);
         }
 
         #description {
             color: white;
             position: absolute;
             font-size: 18px; /* 글씨 크기 증가 */
-            margin-left: 20px; /* 오른쪽으로 이동 */
+            margin-left: 150px; /* 오른쪽으로 이동 */
         }
 
         .description-text {
@@ -82,7 +86,7 @@
         }
 
         #resetButton {
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 10px 20px;
             font-size: 16px;
             background-color: #ffd700;
@@ -127,6 +131,7 @@
     function createCard(index) {
         const cardElement = document.createElement('div');
         cardElement.classList.add('card');
+        cardElement.style.top = `${index * 180}px`;
         const cardInner = document.createElement('div');
         cardInner.classList.add('card-inner');
 
@@ -145,30 +150,28 @@
     }
 
     function flipCard(card, cardFrontElement, index) {
-        if (flipCount < 3 && !card.classList.contains('flipped')) {
+        if (flipCount < 3 && !card.classList.contains('done')) {
             const randomIndex = Math.floor(Math.random() * cardsData.length);
             const selectedCard = cardsData[randomIndex];
 
             cardFrontElement.style.backgroundImage = `url(${selectedCard.image})`;
 
             setTimeout(() => {
-                card.style.position = 'absolute';
-                card.style.transform = `translate(-200px, ${250 * flipCount}px)`;
+                card.style.transform = `translateX(200px)`;
                 card.querySelector('.card-inner').classList.add('flipped');
             }, 600);
 
             setTimeout(() => {
                 const descriptionPart = document.createElement('div');
-                descriptionPart.innerHTML = `<span class="description-text">${['과거', '현재', '미래'][flipCount]}:</span> ${selectedCard.descriptions[['past', 'present', 'future'][flipCount]]}`;
-                descriptionPart.style.transform = `translate(${150}px, ${250 * flipCount}px)`;
-                descriptionPart.style.position = 'absolute';
+                descriptionPart.className = 'description-text';
+                descriptionPart.innerHTML = `<span>${['과거', '현재', '미래'][flipCount]}:</span> ${selectedCard.descriptions[['past', 'present', 'future'][flipCount]]}`;
+                descriptionPart.style.top = `${index * 180}px`;
+                descriptionPart.style.left = '320px';
                 cardContainer.appendChild(descriptionPart);
 
-                card.style.pointerEvents = 'none';
+                card.classList.add('done');  // Prevent further clicks on the same card
                 flipCount++;
-                if (flipCount < 3) {
-                    createCard(flipCount);
-                } else {
+                if (flipCount === 3) {
                     resetButton.style.display = 'block';
                     resetButton.addEventListener('click', resetGame);
                 }
@@ -179,12 +182,14 @@
     function resetGame() {
         flipCount = 0;
         cardContainer.innerHTML = '';
-        createCard(0);
+        for (let i = 0; i < 4; i++) {
+            createCard(i);
+        }
         resetButton.style.display = 'none';
     }
 
     // 최초 호출
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         createCard(i);
     }
 </script>
