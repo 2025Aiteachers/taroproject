@@ -78,6 +78,11 @@
             color: gold; /* 과거, 현재, 미래 텍스트 색상 */
         }
 
+        .future-text {
+            color: lightblue; /* 미래 운세 색상 */
+            font-weight: bold;
+        }
+
         .button-container {
             margin-top: 20px;
             display: flex;
@@ -98,6 +103,10 @@
             max-width: 130px;
         }
 
+        .reset-button {
+            white-space: pre-wrap; /* 줄바꿈 유지 */
+        }
+
         .reset-button:hover,
         .share-button:hover {
             background-color: #cca300;
@@ -111,7 +120,7 @@
 </head>
 <body>
 <h1>2025년 타로카드 신년운세</h1>
-<p>세 장의 카드를 차례로 클릭해서 당신의 과거, 현재, 미래 운세를 확인하세요!</p>
+<p>세 장의 카드를 차례로 클릭해서<br>당신의 과거, 현재, 미래 운세를 확인하세요!</p>
 
 <div class="cards">
     <div class="card">
@@ -150,7 +159,7 @@
 <p class="description" id="cardDescription"></p>
 
 <div class="button-container hidden" id="buttonContainer">
-    <button class="reset-button" id="resetButton">처음으로 돌아가기</button>
+    <button class="reset-button" id="resetButton">처음으로<br>돌아가기</button>
     <button class="share-button" id="kakaoShareButton">카카오톡으로 공유하기</button>
     <button class="share-button" id="nativeShareButton">X로 공유하기</button>
 </div>
@@ -196,8 +205,10 @@
             const position = ['past', 'present', 'future'];
             const positionText = ['과거', '현재', '미래'];
 
+            const descriptionClass = position[flipCount] === 'future' ? 'future-text' : '';
+
             cardName.innerHTML += `<br/><strong class="gold-text">${positionText[flipCount]}:</strong> <span class="arcana-name">${selectedCard.name}</span>`;
-            cardDescription.innerHTML += `<strong class="gold-text">${positionText[flipCount]}:</strong> <span>${selectedCard.descriptions[position[flipCount]]}</span><br/>`;
+            cardDescription.innerHTML += `<strong class="gold-text">${positionText[flipCount]}:</strong> <span class="${descriptionClass}">${selectedCard.descriptions[position[flipCount]]}</span><br/>`;
 
             cardInnerElements[index].classList.add("flipped");
             flipCount++;
